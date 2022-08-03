@@ -58,8 +58,8 @@ export class User extends EntityHelper {
 
   @Index()
   @Column({ default: UserStatusEnum.active, comment: '회원상태' })
-  @IsEnum(UserProvidersEnum)
-  status: string;
+  @IsEnum(UserStatusEnum)
+  status: UserStatusEnum;
 
   @OneToOne(() => PublicFile, (photo) => photo.user)
   @JoinColumn({ name: 'photo_id' })
