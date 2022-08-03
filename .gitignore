@@ -37,4 +37,5 @@ lerna-debug.log*
 .history
 .env.*
 
-src/entities/board.entity.ts
+ormconfig.development.json
+
