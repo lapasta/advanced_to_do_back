@@ -11,11 +11,11 @@ Nestjs boilerplate(Uncompleted)
 4. winston log 적용
   - console, file(development일때는 안남김)
 5. 진행중..
-
 ```
 
 # Typeorm 관련 명령어
 ```
+https://orkhan.gitbook.io/typeorm
 - yarn migration:generate 파일명 > entity가 존재할때 entity 기반으로 migration 생성
 - yarn migration:create 파일명 > migration파일 생성
 - yarn migration:run:dev > development환경에 migration run  처리
@@ -23,9 +23,9 @@ Nestjs boilerplate(Uncompleted)
 - yarn seeds:dev seed > development 환경에 seed데이터 삽입 실행
 ```
 
-
-# 삭제할 파일
+# TODO
 ```
-src/migrations 하위 파일
-src/entity 하위 파일
+1. 회원가입
+2. 로그인처리
+3. 인증처리
 ```
