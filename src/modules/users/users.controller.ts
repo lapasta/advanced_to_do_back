@@ -1,16 +1,17 @@
 import {
+  BadRequestException,
   Body,
   Controller,
   Get,
   HttpCode,
   HttpStatus,
+  Param,
   Post,
   Put,
   Query,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { OrderByEnum } from 'src/common/enums/order-by.enum';
-import { Like } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { SearchUserPagingDto } from './dto/search-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -41,9 +42,12 @@ export class UsersController {
     return this.usersService.findSearchPage(query);
   }
 
-  @Put()
+  @Put(':id')
   @HttpCode(HttpStatus.OK)
-  update(@Body() updateUserDto: UpdateUserDto) {
-    return this.usersService.update(updateUserDto);
+  update(@Param('id') id: number, @Body() updateUserDto: UpdateUserDto) {
+    if (id === updateUserDto.id) {
+      return this.usersService.update(updateUserDto);
+    }
+    throw new BadRequestException('Parameter Error');
   }
 }

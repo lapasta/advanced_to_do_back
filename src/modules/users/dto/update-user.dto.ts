@@ -13,18 +13,22 @@ import { UserProvidersEnum } from 'src/common/enums/user-providers.enum';
 import { UserStatusEnum } from 'src/common/enums/user-status.enum';
 import { IsExist } from 'src/utils/validators/is-exists.validator';
 import { toInt } from 'src/utils/helpers/cast.helper';
+import { IsNotExist } from 'src/utils/validators/is-not-exists.validator';
 
 // TODO anotation 순서 체크 필요
 export class UpdateUserDto {
   @ApiProperty({ description: '아이디' })
   @Transform(({ value }) => toInt(value))
   @IsNotEmpty()
+  @Validate(IsNotExist, ['User'], {
+    message: '사용자가 존재하지 않습니다.',
+  })
   id: number;
 
   @ApiProperty({ example: 'test1@example.com', description: '이메일' })
   @Transform(({ value }) => value?.toLowerCase().trim())
   @Validate(IsExist, ['User'], {
-    message: 'emailExists',
+    message: '이메일이 존재하지 않습니다.',
   })
   @IsEmail()
   @IsNotEmpty()
