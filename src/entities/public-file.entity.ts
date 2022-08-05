@@ -1,5 +1,12 @@
-import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
-import { EntityHelper } from 'src/utils/entity-helper';
+import { EntityHelper } from 'src/utils/helpers/entity.helper';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  OneToOne,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 import { User } from './user.entity';
 
 @Entity()
@@ -27,4 +34,10 @@ export class PublicFile extends EntityHelper {
 
   @OneToOne(() => User, (user) => user.photo)
   user?: Promise<User> | null;
+
+  @CreateDateColumn({ type: 'datetime' })
+  createdAt: Date;
+
+  @UpdateDateColumn({ type: 'datetime' })
+  updatedAt: Date;
 }

@@ -3,19 +3,21 @@ import {
   BeforeInsert,
   BeforeUpdate,
   Column,
+  CreateDateColumn,
   Entity,
   Index,
   JoinColumn,
   OneToOne,
   PrimaryGeneratedColumn,
   RelationId,
+  UpdateDateColumn,
 } from 'typeorm';
 import * as bcrypt from 'bcryptjs';
-import { EntityHelper } from 'src/utils/entity-helper';
-import { UserProvidersEnum } from 'src/enums/user-providers.enum';
-import { UserStatusEnum } from 'src/enums/user-status.enum';
+import { UserProvidersEnum } from 'src/common/enums/user-providers.enum';
+import { UserStatusEnum } from 'src/common/enums/user-status.enum';
 import { PublicFile } from './public-file.entity';
 import { IsEnum } from 'class-validator';
+import { EntityHelper } from 'src/utils/helpers/entity.helper';
 
 @Entity()
 export class User extends EntityHelper {
@@ -23,7 +25,7 @@ export class User extends EntityHelper {
   id: number;
 
   @Column({ unique: true, comment: '이메일' })
-  email?: string | null;
+  email: string | null;
 
   @Column({ nullable: true, comment: '비밀번호' })
   password?: string | null;
@@ -67,4 +69,10 @@ export class User extends EntityHelper {
 
   @RelationId((user: User) => user.photo)
   photo_id: number;
+
+  @CreateDateColumn({ type: 'datetime' })
+  createdAt: Date;
+
+  @UpdateDateColumn({ type: 'datetime' })
+  updatedAt: Date;
 }
