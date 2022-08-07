@@ -1,30 +1,33 @@
-import { ApiProperty, IntersectionType } from '@nestjs/swagger';
+import { ApiPropertyOptional, IntersectionType } from '@nestjs/swagger';
 import { IsEnum, IsOptional } from 'class-validator';
 import { PagingDto } from 'src/common/dto/paging.dto';
+import { UserProvidersEnum } from 'src/common/enums/user-providers.enum';
 import { UserStatusEnum } from 'src/common/enums/user-status.enum';
 
 export class SearchUserDto {
-  @ApiProperty({ example: 'test1@example.com', description: '이메일' })
+  @ApiPropertyOptional({ example: 'test1@example.com', description: '이메일' })
+  @IsOptional()
   email?: string | null;
 
-  @ApiProperty({ description: '제공업체' })
+  @ApiPropertyOptional({ description: '제공업체' })
   @IsOptional()
-  @IsEnum(UserStatusEnum)
-  provider?: UserStatusEnum | null;
+  @IsEnum(UserProvidersEnum)
+  provider?: UserProvidersEnum | null;
 
-  @ApiProperty({ description: '소셜 아이디' })
+  @ApiPropertyOptional({ description: '소셜 아이디' })
+  @IsOptional()
   socialId?: string | null;
 
-  @ApiProperty({ description: '이름' })
+  @ApiPropertyOptional({ description: '이름' })
+  @IsOptional()
   name?: string | null;
 
-  @ApiProperty({ description: '회원상태' })
+  @ApiPropertyOptional({ description: '회원상태' })
   @IsOptional()
   @IsEnum(UserStatusEnum)
   status?: UserStatusEnum | null;
 }
 
-// TODO 생성자를 이용한 default값 확인 필요
 export class SearchUserPagingDto extends IntersectionType(
   SearchUserDto,
   PagingDto,

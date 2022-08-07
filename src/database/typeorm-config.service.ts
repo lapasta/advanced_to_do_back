@@ -16,7 +16,7 @@ export class TypeOrmConfigService implements TypeOrmOptionsFactory {
       password: this.configService.get('database.password'),
       database: this.configService.get('database.database'),
       charset: 'UTF8_GENERAL_CI',
-      timezone: '+00:00', // UTC
+      timezone: '+09:00', // UTC
       // connectTimeout: 10000,
       // debug: false,
       // trace: true,

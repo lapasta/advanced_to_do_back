@@ -27,6 +27,7 @@ export class UpdateUserDto {
 
   @ApiProperty({ example: 'test1@example.com', description: '이메일' })
   @Transform(({ value }) => value?.toLowerCase().trim())
+  @IsOptional()
   @Validate(IsExist, ['User'], {
     message: '이메일이 존재하지 않습니다.',
   })

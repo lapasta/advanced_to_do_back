@@ -25,7 +25,6 @@ https://orkhan.gitbook.io/typeorm
 
 # TODO
 ```
-1. 회원가입
-2. 로그인처리
-3. 인증처리
+1. 로그인처리
+2. 인증처리
 ```

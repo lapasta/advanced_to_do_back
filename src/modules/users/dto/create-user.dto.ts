@@ -17,37 +17,39 @@ import { IsNotExist } from 'src/utils/validators/is-not-exists.validator';
 export class CreateUserDto {
   @ApiProperty({ example: 'test1@example.com', description: '이메일' })
   @Transform(({ value }) => value?.toLowerCase().trim())
-  @Validate(IsNotExist, ['User'], {
-    message: 'emailAlreadyExists',
-  })
-  @IsEmail()
   @IsNotEmpty()
-  email?: string | null;
+  @IsEmail()
+  @Validate(IsNotExist, ['User'], {
+    message: 'Email이 존재합니다.',
+  })
+  email: string;
 
   // TODO 비밀번호 정규식 validate 처리
   // 관련 정규식: "^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$"
   @ApiProperty({ description: '비밀번호' })
   @MinLength(8)
-  password?: string;
+  password: string;
 
-  @ApiProperty({ description: '제공업체' })
+  @ApiProperty({ enum: UserProvidersEnum, description: '제공업체' })
   @IsEnum(UserProvidersEnum)
-  provider?: UserProvidersEnum;
+  provider: UserProvidersEnum = UserProvidersEnum.email;
 
   @ApiProperty({ description: '소셜 아이디' })
+  @IsOptional()
   socialId?: string | null;
 
   @ApiProperty({ description: '이름' })
+  @IsOptional()
   name?: string | null;
 
-  @ApiProperty({ description: '회원상태' })
+  @ApiProperty({ enum: UserStatusEnum, description: '회원상태' })
   @IsEnum(UserStatusEnum)
-  status: UserStatusEnum;
+  status: UserStatusEnum = UserStatusEnum.active;
 
   @ApiProperty({ description: '사진' })
-  @IsOptional()
   @Validate(IsExist, ['PublicFile', 'id'], {
-    message: 'imageNotExists',
+    message: '이미지파일이 존재하지 않습니다.',
   })
+  @IsOptional()
   photo?: PublicFile | null;
 }
